@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
 @Data
+@Getter @Setter
 public class Message {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,6 +24,13 @@ public class Message {
     @EqualsAndHashCode.Exclude
     @JsonIgnore
     private User author;
+
+    @ElementCollection(targetClass = OrderStatus.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "order_status", joinColumns = @JoinColumn(name = "message_id"))
+    @Enumerated(EnumType.STRING)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<OrderStatus> orderStatus;
 
     public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";

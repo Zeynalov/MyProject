@@ -10,6 +10,11 @@ User editor
         <label><input type="checkbox" name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}</label>
     </div>
     </#list>
+    <#--<#list orderStatus as order>
+    <div>
+        <label><input type="checkbox" name="${order}" ${user.orderStatus?seq_contains(order)?string("checked", "")}>${order}</label>
+    </div>
+    </#list>-->
     <input type="hidden" value="${user.id}" name="userId">
     <input type="hidden" value="${_csrf.token}" name="_csrf">
     <button type="submit">Save</button>
